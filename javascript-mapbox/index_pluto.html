@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8' />
+    <title>NYC Pluto Data 2020</title>
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+    <script src='https://api.mapbox.com/mapbox-gl-js/v1.7.0/mapbox-gl.js'></script>
+    <link href='https://api.mapbox.com/mapbox-gl-js/v1.7.0/mapbox-gl.css' rel='stylesheet' />
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <style>
+        body { margin:0; padding:0; }
+        #map { position:absolute; top:0; bottom:0; width:100%; }
+        .map-overlay {
+          font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+          position: absolute;
+          width: 30%;
+          top: 0;
+          left: 0;
+          padding: 10px;
+        }
+
+        .map-overlay .map-overlay-inner {
+          background-color: #fff;
+          box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+          border-radius: 3px;
+          padding: 10px;
+          margin-bottom: 10px;
+        }
+          
+        .map-overlay h2 {
+          line-height: 24px;
+          display: block;
+          margin: 0 0 10px;
+        }
+          
+        .map-overlay input {
+          background-color: transparent;
+          display: inline-block;
+          width: 100%;
+          position: relative;
+          margin: 0;
+          cursor: ew-resize;
+        }
+        .typeLabel {
+          font-weight: bold;
+        }
+        .yearContainer {
+          display: flex;
+          flex-direction: row;
+          padding-bottom: 5px;
+        }
+        .color {
+          width: 12px;
+          height: 10px;
+          margin: auto 0;
+          padding-right: 2px;
+        }
+        #single-family .pre-war.color {
+          background-color: #de2d26;
+        }
+        #single-family .post-war.color {
+          background-color: #fb6a4a;
+        }
+        #single-family .post-1980.color {
+          background-color: #fcae91;
+        }
+        #multi-family .pre-war.color {
+          background-color: #e6550d;
+        }
+        #multi-family .post-war.color {
+          background-color: #fd8d3c;
+        }
+        #multi-family .post-1980.color {
+          background-color: #fdbe85;
+        }
+        #commercial .pre-war.color {
+          background-color: #31a354;
+        }
+        #commercial .post-war.color {
+          background-color: #74c476;
+        }
+        #commercial .post-1980.color {
+          background-color: #bae4b3;
+        }
+        #industrial .pre-war.color {
+          background-color: #3182bd;
+        }
+        #industrial .post-war.color {
+          background-color: #6baed6;
+        }
+        #industrial .post-1980.color {
+          background-color: #bdd7e7;
+        }
+        #institutional .pre-war.color {
+          background-color: #756bb1;
+        }
+        #institutional .post-war.color {
+          background-color: #9e9ac8;
+        }
+        #institutional .post-1980.color {
+          background-color: #cbc9e2;
+        }
+        .label {
+          margin: 0 8px 0 4px;
+        }
+    </style>
+</head>
+<body>
+
+<div id='map'></div>
+
+<div class="map-overlay top">
+  <div class="map-overlay-inner">
+    <h2>NYC PLUTO DATA 2020</h2>
+  </div>
+  <div class="map-overlay-inner">
+      <div id="legend" class="legend">
+        <h3>Building Types</h3>
+      <div class="bar"></div>
+      <div class="typeContainer">
+        <div class="typeLabel">Single Family (1-4)</div>
+        <div class="yearContainer" id="single-family">
+            <div class="color pre-war"></div>
+            <div class="label">Pre-War</div>
+            <div class="color post-war"></div>
+            <div class="label">Post-War</div>
+            <div class="color post-1980"></div>
+            <div class="label">Post 1980</div>
+        </div>
+      </div>
+      <div class="typeContainer">
+        <div class="typeLabel">Multi Family (5+)</div>
+        <div class="yearContainer" id="multi-family">
+          <div class="color pre-war"></div>
+          <div class="label">Pre-War</div>
+          <div class="color post-war"></div>
+          <div class="label">Post-War</div>
+          <div class="color post-1980"></div>
+          <div class="label">Post 1980</div>
+        </div>
+      </div>
+      <div class="typeContainer">
+        <div class="typeLabel">Commercial</div>
+        <div class="yearContainer" id="commercial">
+          <div class="color pre-war"></div>
+          <div class="label">Pre-War</div>
+          <div class="color post-war"></div>
+          <div class="label">Post-War</div>
+          <div class="color post-1980"></div>
+          <div class="label">Post 1980</div>
+        </div>
+      </div>
+      <div class="typeContainer">
+        <div class="typeLabel">Industrial</div>
+        <div class="yearContainer" id="industrial">
+          <div class="color pre-war"></div>
+          <div class="label">Pre-War</div>
+          <div class="color post-war"></div>
+          <div class="label">Post-War</div>
+          <div class="color post-1980"></div>
+          <div class="label">Post 1980</div>
+        </div>
+      </div>
+      <div class="typeContainer">
+        <div class="typeLabel">Institutional</div>
+        <div class="yearContainer" id="institutional">
+          <div class="color pre-war"></div>
+          <div class="label">Pre-War</div>
+          <div class="color post-war"></div>
+          <div class="label">Post-War</div>
+          <div class="color post-1980"></div>
+          <div class="label">Post 1980</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// first thing, declare your map object
+// the div id where you want to put the map should match the value for the container
+// all maps need a style, see default options through mapbox studio or style your own
+// define a center and zoom level, and additional arguments as desired
+mapboxgl.accessToken = 'pk.eyJ1IjoidmVldiIsImEiOiIzdzVEVDdrIn0.z3N2X1Fk7rx4wXesVf0-rQ';
+  const map = new mapboxgl.Map({
+  container: 'map',
+  style: 'mapbox://styles/mapbox/light-v10',
+  center: [ -73.97332, 40.685787 ], // starting position [lng, lat]
+  minZoom: 2,
+  zoom: 10
+});
+
+const reds = ['#fcae91', '#fb6a4a', '#de2d26', '#a50f15']
+const oranges = ['#fdbe85', '#fd8d3c', '#e6550d', '#a63603']
+const blues = ['#bdd7e7', '#6baed6', '#3182bd', '#08519c']
+const greens = ['#bae4b3', '#74c476', '#31a354', '#006d2c']
+const purples = ['#cbc9e2', '#9e9ac8', '#756bb1', '#a63603']
+
+// if we want to access map source, tileset or layer data, do it inside the map on.load callback
+map.on('load', function() {
+  
+    // add all our sources
+    map.addSource('pluto', {
+      type: 'vector',
+      // url:'mapbox://veev.3p034a4e' //coalesce
+      // url:'mapbox://veev.2tgtkeqc' //drop densest
+      // url:'mapbox://veev.8wqylmep' //drop fraction
+      url:'mapbox://veev.7wopv0c4' //coalesce smallest
+    })
+
+    map.addLayer({
+      'id': 'pluto-layer',
+      'type': 'fill',
+      'source': 'pluto',
+      'source-layer': 'nyc_pluto_2020',
+      'paint': {
+    // https://docs.mapbox.com/mapbox-gl-js/style-spec/#expressions-match
+        // 'fill-color': 'gray',
+        // 'fill-color': [
+        //   'interpolate',
+        //   ['exponential', 0.5],
+        //   ['zoom'],
+        //   15,
+        //   '#e2714b',
+        //   22,
+        //   '#eee695'
+        //   ],
+        'fill-color': [
+          'interpolate',
+          ['exponential', 0.5],
+          ['zoom'],
+          10,
+          [
+            'case',
+            ['all', ['in', 'A', ['get', 'bldgclass']], ['any', ['<=', ['get', 'yearbuilt'], 1940], ['<=', ['get', 'cnstrct_yr'], 1940]]], //single-family dwelling
+            reds[reds.length-2],
+            ['all', ['in', 'A', ['get', 'bldgclass']], ['any', ['all', ['>', ['get', 'yearbuilt'], 1940], ['<', ['get', 'cnstrct_yr'], 1980]], ['all', ['>', ['get', 'cnstrct_yr'], 1940], ['<', ['get', 'cnstrct_yr'], 1980]]]], //single-family dwelling
+            reds[reds.length-3],
+            ['all', ['in', 'A', ['get', 'bldgclass']], ['any', ['>=', ['get', 'yearbuilt'], 1980], ['>=', ['get', 'cnstrct_yr'], 1980]]], //single-family dwelling
+            reds[reds.length - 4],
+            // ['in', 'A', ['get', 'bldgclass']], //single-family dwelling
+            // reds[reds.length-1],
+            ['all', ['in', 'B', ['get', 'bldgclass']], ['<=', ['get', 'yearbuilt'], 1940]], //two-family dwelling
+            reds[reds.length-2],
+            ['all', ['in', 'B', ['get', 'bldgclass']], ['all', ['>', ['get', 'yearbuilt'], 1940], ['<', ['get', 'yearbuilt'], 1980]]], //two-family dwelling
+            reds[reds.length-3],
+            ['all', ['in', 'B', ['get', 'bldgclass']], ['>=', ['get', 'yearbuilt'], 1980]], //two-family dwelling
+            reds[reds.length - 4],
+            // ['in', 'B', ['get', 'bldgclass']], //two-family dwelling
+            // reds[reds.length-2],
+            ['all', ['in', 'C0', ['get', 'bldgclass']], ['<=', ['get', 'yearbuilt'], 1940]], //three-family dwelling
+            reds[reds.length-2],
+            ['all', ['in', 'C0', ['get', 'bldgclass']], ['all', ['>', ['get', 'yearbuilt'], 1940], ['<', ['get', 'yearbuilt'], 1980]]], //three-family dwelling
+            reds[reds.length-3],
+            ['all', ['in', 'C0', ['get', 'bldgclass']], ['>=', ['get', 'yearbuilt'], 1980]], //three-family dwelling
+            reds[reds.length - 4],
+            // ['==', 'C0', ['get', 'bldgclass']], //three-family dwelling
+            // reds[reds.length-2],
+            ['all', ['in', 'C3', ['get', 'bldgclass']], ['<=', ['get', 'yearbuilt'], 1940]], //four-family dwelling
+            reds[reds.length-2],
+            ['all', ['in', 'C3', ['get', 'bldgclass']], ['all', ['>', ['get', 'yearbuilt'], 1940], ['<', ['get', 'yearbuilt'], 1980]]], //four-family dwelling
+            reds[reds.length-3],
+            ['all', ['in', 'C3', ['get', 'bldgclass']], ['>=', ['get', 'yearbuilt'], 1980]], //four-family dwelling
+            reds[reds.length - 4],
+            // ['==', 'C3', ['get', 'bldgclass']], //four-family dwelling
+            // reds[reds.length-2],
+            ['all', ['in', 'C', ['get', 'bldgclass']], ['<=', ['get', 'yearbuilt'], 1940]], // multi-family dwelling - walk up
+            oranges[oranges.length-2],
+            ['all', ['in', 'C', ['get', 'bldgclass']], ['all', ['>', ['get', 'yearbuilt'], 1940], ['<', ['get', 'yearbuilt'], 1980]]], // multi-family dwelling - walk up
+            oranges[oranges.length-3],
+            ['all', ['in', 'C', ['get', 'bldgclass']], ['>=', ['get', 'yearbuilt'], 1980]], // multi-family dwelling - walk up
+            oranges[oranges.length - 4],
+            // ['in', 'C', ['get', 'bldgclass']], // multi-family dwelling - walk up
+            // oranges[oranges.length-1],
+            ['all', ['in', 'D', ['get', 'bldgclass']], ['<=', ['get', 'yearbuilt'], 1940]], // multi-family dwelling - elevator
+            oranges[oranges.length-2],
+            ['all', ['in', 'D', ['get', 'bldgclass']], ['all', ['>', ['get', 'yearbuilt'], 1940], ['<', ['get', 'yearbuilt'], 1980]]], // multi-family dwelling - elevator
+            oranges[oranges.length-3],
+            ['all', ['in', 'D', ['get', 'bldgclass']], ['>=', ['get', 'yearbuilt'], 1980]], // multi-family dwelling - elevator
+            oranges[oranges.length - 4],
+            // ['in', 'D', ['get', 'bldgclass']], // multi-family dwelling - elevator
+            // 'orange',
+            ['all', ['in', 'E', ['get', 'bldgclass']], ['<=', ['get', 'yearbuilt'], 1940]], // industrial
+            blues[blues.length-2],
+            ['all', ['in', 'E', ['get', 'bldgclass']], ['all', ['>', ['get', 'yearbuilt'], 1940], ['<', ['get', 'yearbuilt'], 1980]]], // industrial
+            blues[blues.length-3],
+            ['all', ['in', 'E', ['get', 'bldgclass']], ['>=', ['get', 'yearbuilt'], 1980]], // industrial
+            blues[blues.length - 4],
+            // ['in', 'E', ['get', 'bldgclass']], // industrial
+            // 'blue',
+            ['all', ['in', 'F', ['get', 'bldgclass']], ['<=', ['get', 'yearbuilt'], 1940]], // industrial
+            blues[blues.length-2],
+            ['all', ['in', 'F', ['get', 'bldgclass']], ['all', ['>', ['get', 'yearbuilt'], 1940], ['<', ['get', 'yearbuilt'], 1980]]], // industrial
+            blues[blues.length-3],
+            ['all', ['in', 'F', ['get', 'bldgclass']], ['>=', ['get', 'yearbuilt'], 1980]], // industrial
+            blues[blues.length - 4],
+            // ['in', 'F', ['get', 'bldgclass']], // industrial
+            // 'blue',
+            ['all', ['in', 'G', ['get', 'bldgclass']], ['<=', ['get', 'yearbuilt'], 1940]], // industrial - gas stations
+            blues[blues.length-2],
+            ['all', ['in', 'G', ['get', 'bldgclass']], ['all', ['>', ['get', 'yearbuilt'], 1940], ['<', ['get', 'yearbuilt'], 1980]]], // industrial - gas stations
+            blues[blues.length-3],
+            ['all', ['in', 'G', ['get', 'bldgclass']], ['>=', ['get', 'yearbuilt'], 1980]], // industrial - gas stations
+            blues[blues.length - 4],
+            // ['in', 'G', ['get', 'bldgclass']], // industrial - gas stations
+            // 'blue',
+            ['all', ['in', 'H', ['get', 'bldgclass']], ['<=', ['get', 'yearbuilt'], 1940]], // commercial - hotels
+            greens[greens.length-2],
+            ['all', ['in', 'H', ['get', 'bldgclass']], ['all', ['>', ['get', 'yearbuilt'], 1940], ['<', ['get', 'yearbuilt'], 1980]]], // commercial - hotels
+            greens[greens.length-3],
+            ['all', ['in', 'H', ['get', 'bldgclass']], ['>=', ['get', 'yearbuilt'], 1980]], // commercial - hotels
+            greens[greens.length - 4],
+            // ['in', 'H', ['get', 'bldgclass']], // commercial - hotels
+            // 'green',
+            ['all', ['in', 'I', ['get', 'bldgclass']], ['<=', ['get', 'yearbuilt'], 1940]], // institutional - hospitals
+            purples[purples.length-2],
+            ['all', ['in', 'I', ['get', 'bldgclass']], ['all', ['>', ['get', 'yearbuilt'], 1940], ['<', ['get', 'yearbuilt'], 1980]]], // institutional - hospitals
+            purples[purples.length-3],
+            ['all', ['in', 'I', ['get', 'bldgclass']], ['>=', ['get', 'yearbuilt'], 1980]], // institutional - hospitals
+            purples[purples.length - 4],
+            // ['in', 'I', ['get', 'bldgclass']], // institutional - hospitals
+            // 'purple',
+            ['all', ['in', 'J', ['get', 'bldgclass']], ['<=', ['get', 'yearbuilt'], 1940]], // commercial - theaters
+            greens[greens.length-2],
+            ['all', ['in', 'J', ['get', 'bldgclass']], ['all', ['>', ['get', 'yearbuilt'], 1940], ['<', ['get', 'yearbuilt'], 1980]]], // commercial - theaters
+            greens[greens.length-3],
+            ['all', ['in', 'J', ['get', 'bldgclass']], ['>=', ['get', 'yearbuilt'], 1980]], // commercial - theaters
+            greens[greens.length - 4],
+            // ['in', 'J', ['get', 'bldgclass']], // commercial - theaters
+            // 'green',
+            ['all', ['in', 'K', ['get', 'bldgclass']], ['<=', ['get', 'yearbuilt'], 1940]], // commercial - retail
+            greens[greens.length-2],
+            ['all', ['in', 'K', ['get', 'bldgclass']], ['all', ['>', ['get', 'yearbuilt'], 1940], ['<', ['get', 'yearbuilt'], 1980]]], // commercial - retail
+            greens[greens.length-3],
+            ['all', ['in', 'K', ['get', 'bldgclass']], ['>=', ['get', 'yearbuilt'], 1980]], // commercial - retail
+            greens[greens.length - 4],
+            // ['in', 'K', ['get', 'bldgclass']], // commercial - retail
+            // 'green',
+            ['all', ['in', 'L', ['get', 'bldgclass']], ['<=', ['get', 'yearbuilt'], 1940]], // industrial - loft
+            blues[blues.length-2],
+            ['all', ['in', 'L', ['get', 'bldgclass']], ['all', ['>', ['get', 'yearbuilt'], 1940], ['<', ['get', 'yearbuilt'], 1980]]], // industrial - loft
+            blues[blues.length-3],
+            ['all', ['in', 'L', ['get', 'bldgclass']], ['>=', ['get', 'yearbuilt'], 1980]], // industrial - loft
+            blues[blues.length - 4],
+            // ['in', 'L', ['get', 'bldgclass']], // industrial - loft
+            // 'blue',
+            ['all', ['in', 'M', ['get', 'bldgclass']], ['<=', ['get', 'yearbuilt'], 1940]], // institutional - churches
+            purples[purples.length-2],
+            ['all', ['in', 'M', ['get', 'bldgclass']], ['all', ['>', ['get', 'yearbuilt'], 1940], ['<', ['get', 'yearbuilt'], 1980]]], // institutional - churches
+            purples[purples.length-3],
+            ['all', ['in', 'M', ['get', 'bldgclass']], ['>=', ['get', 'yearbuilt'], 1980]], // institutional - churches
+            purples[purples.length - 4],
+            // ['in', 'M', ['get', 'bldgclass']], // institutional - churches
+            // 'purple',
+            ['all', ['in', 'N', ['get', 'bldgclass']], ['<=', ['get', 'yearbuilt'], 1940]], // institutional - asylums
+            purples[purples.length-2],
+            ['all', ['in', 'N', ['get', 'bldgclass']], ['all', ['>', ['get', 'yearbuilt'], 1940], ['<', ['get', 'yearbuilt'], 1980]]], // institutional - asylums
+            purples[purples.length-3],
+            ['all', ['in', 'N', ['get', 'bldgclass']], ['>=', ['get', 'yearbuilt'], 1980]], // institutional - asylums
+            purples[purples.length - 4],
+            // ['in', 'N', ['get', 'bldgclass']], // institutional - asylums
+            // 'purple',
+            ['all', ['in', 'O', ['get', 'bldgclass']], ['<=', ['get', 'yearbuilt'], 1940]], // commercial - office
+            greens[greens.length-2],
+            ['all', ['in', 'O', ['get', 'bldgclass']], ['all', ['>', ['get', 'yearbuilt'], 1940], ['<', ['get', 'yearbuilt'], 1980]]], // commercial - office
+            greens[greens.length-3],
+            ['all', ['in', 'O', ['get', 'bldgclass']], ['>=', ['get', 'yearbuilt'], 1980]], // commercial - office
+            greens[greens.length - 4],
+            // ['in', 'O', ['get', 'bldgclass']], // commercial - office
+            // 'green',
+            ['all', ['in', 'P', ['get', 'bldgclass']], ['<=', ['get', 'yearbuilt'], 1940]], // institutional - public assembly
+            purples[purples.length-2],
+            ['all', ['in', 'P', ['get', 'bldgclass']], ['all', ['>', ['get', 'yearbuilt'], 1940], ['<', ['get', 'yearbuilt'], 1980]]], // institutional - public assembly
+            purples[purples.length-3],
+            ['all', ['in', 'P', ['get', 'bldgclass']], ['>=', ['get', 'yearbuilt'], 1980]], // institutional - public assembly
+            purples[purples.length - 4],
+            // ['in', 'P', ['get', 'bldgclass']], // institutional - public assembly
+            // 'purple',
+            ['all', ['in', 'Q', ['get', 'bldgclass']], ['<=', ['get', 'yearbuilt'], 1940]], // institutional - outdoor rec
+            purples[purples.length-2],
+            ['all', ['in', 'Q', ['get', 'bldgclass']], ['all', ['>', ['get', 'yearbuilt'], 1940], ['<', ['get', 'yearbuilt'], 1980]]], // institutional - outdoor rec
+            purples[purples.length-3],
+            ['all', ['in', 'Q', ['get', 'bldgclass']], ['>=', ['get', 'yearbuilt'], 1980]], // institutional - outdoor rec
+            purples[purples.length - 4],
+            // ['in', 'Q', ['get', 'bldgclass']], // institutional - outdoor rec
+            // 'purple',
+            ['all', ['in', 'R', ['get', 'bldgclass']], ['<=', ['get', 'yearbuilt'], 1940]], // multi-family dwelling - condos
+            oranges[oranges.length-2],
+            ['all', ['in', 'R', ['get', 'bldgclass']], ['all', ['>', ['get', 'yearbuilt'], 1940], ['<', ['get', 'yearbuilt'], 1980]]], // multi-family dwelling - condos
+            oranges[oranges.length-3],
+            ['all', ['in', 'R', ['get', 'bldgclass']], ['>=', ['get', 'yearbuilt'], 1980]], // multi-family dwelling - condos
+            oranges[oranges.length - 4],
+            // ['in', 'R', ['get', 'bldgclass']], // multi-family - condos
+            // 'orange',
+            ['all', ['in', 'S5', ['get', 'bldgclass']], ['<=', ['get', 'yearbuilt'], 1940]], // multi-family dwelling 
+            oranges[oranges.length-2],
+            ['all', ['in', 'S5', ['get', 'bldgclass']], ['all', ['>', ['get', 'yearbuilt'], 1940], ['<', ['get', 'yearbuilt'], 1980]]], // multi-family dwelling
+            oranges[oranges.length-3],
+            ['all', ['in', 'S5', ['get', 'bldgclass']], ['>=', ['get', 'yearbuilt'], 1980]], // multi-family dwelling
+            oranges[oranges.length - 4],
+            // ['==', 'S5', ['get', 'bldgclass']], //multi-family dwelling
+            // 'orange',
+            ['all', ['in', 'S', ['get', 'bldgclass']], ['<=', ['get', 'yearbuilt'], 1940]], // multi-family dwelling - condos
+            oranges[oranges.length-2],
+            ['all', ['in', 'S', ['get', 'bldgclass']], ['all', ['>', ['get', 'yearbuilt'], 1940], ['<', ['get', 'yearbuilt'], 1980]]], // multi-family dwelling - condos
+            oranges[oranges.length-3],
+            ['all', ['in', 'S', ['get', 'bldgclass']], ['>=', ['get', 'yearbuilt'], 1980]], // multi-family dwelling - condos
+            oranges[oranges.length - 4],
+            // ['in', 'S', ['get', 'bldgclass']], // multi-family - condos
+            // 'orange',
+            ['all', ['in', 'T', ['get', 'bldgclass']], ['<=', ['get', 'yearbuilt'], 1940]], // industrial - transportation
+            blues[blues.length-2],
+            ['all', ['in', 'T', ['get', 'bldgclass']], ['all', ['>', ['get', 'yearbuilt'], 1940], ['<', ['get', 'yearbuilt'], 1980]]], // industrial - transportation
+            blues[blues.length-3],
+            ['all', ['in', 'T', ['get', 'bldgclass']], ['>=', ['get', 'yearbuilt'], 1980]], // industrial - transportation
+            blues[blues.length - 4],
+            // ['in', 'T', ['get', 'bldgclass']], // industrial - transportation
+            // 'blue',
+            ['all', ['in', 'U', ['get', 'bldgclass']], ['<=', ['get', 'yearbuilt'], 1940]], // industrial - utilities
+            blues[blues.length-2],
+            ['all', ['in', 'U', ['get', 'bldgclass']], ['all', ['>', ['get', 'yearbuilt'], 1940], ['<', ['get', 'yearbuilt'], 1980]]], // industrial - utilities
+            blues[blues.length-3],
+            ['all', ['in', 'U', ['get', 'bldgclass']], ['>=', ['get', 'yearbuilt'], 1980]], // industrial - utilities
+            blues[blues.length - 4],
+            // ['in', 'U', ['get', 'bldgclass']], // industrial - utilities
+            // 'blue',
+            ['all', ['in', 'V', ['get', 'bldgclass']], ['<=', ['get', 'yearbuilt'], 1940]], // institutional - vacant
+            purples[purples.length-2],
+            ['all', ['in', 'V', ['get', 'bldgclass']], ['all', ['>', ['get', 'yearbuilt'], 1940], ['<', ['get', 'yearbuilt'], 1980]]], // institutional - vacant
+            purples[purples.length-3],
+            ['all', ['in', 'V', ['get', 'bldgclass']], ['>=', ['get', 'yearbuilt'], 1980]], // institutional - vacant
+            purples[purples.length - 4],
+            // ['in', 'V', ['get', 'bldgclass']], // institutional - vacant
+            // 'purple',
+            ['all', ['in', 'W', ['get', 'bldgclass']], ['<=', ['get', 'yearbuilt'], 1940]], // institutional - educational
+            purples[purples.length-2],
+            ['all', ['in', 'W', ['get', 'bldgclass']], ['all', ['>', ['get', 'yearbuilt'], 1940], ['<', ['get', 'yearbuilt'], 1980]]], // institutional - educational
+            purples[purples.length-3],
+            ['all', ['in', 'W', ['get', 'bldgclass']], ['>=', ['get', 'yearbuilt'], 1980]], // institutional - educational
+            purples[purples.length - 4],
+            // ['in', 'W', ['get', 'bldgclass']], // institutional - educational
+            // 'purple',
+            ['all', ['in', 'Y', ['get', 'bldgclass']], ['<=', ['get', 'yearbuilt'], 1940]], // institutional - government
+            purples[purples.length-2],
+            ['all', ['in', 'Y', ['get', 'bldgclass']], ['all', ['>', ['get', 'yearbuilt'], 1940], ['<', ['get', 'yearbuilt'], 1980]]], // institutional - government
+            purples[purples.length-3],
+            ['all', ['in', 'Y', ['get', 'bldgclass']], ['>=', ['get', 'yearbuilt'], 1980]], // institutional - government
+            purples[purples.length - 4],
+            // ['in', 'Y', ['get', 'bldgclass']], // institutional - government
+            // 'purple',
+            ['all', ['in', 'Z', ['get', 'bldgclass']], ['<=', ['get', 'yearbuilt'], 1940]], // institutional - misc
+            purples[purples.length-2],
+            ['all', ['in', 'Z', ['get', 'bldgclass']], ['all', ['>', ['get', 'yearbuilt'], 1940], ['<', ['get', 'yearbuilt'], 1980]]], // institutional - misc
+            purples[purples.length-3],
+            ['all', ['in', 'Z', ['get', 'bldgclass']], ['>=', ['get', 'yearbuilt'], 1980]], // institutional - misc
+            purples[purples.length - 4],
+            // ['in', 'Z', ['get', 'bldgclass']], // institutional - miscellaneous
+            // 'purple',
+            'black' //default color
+            ]
+          ],
+        // [
+        // 'interpolate',
+        //   ['linear'], 
+        //   ['to-number', ['get', 'yearbuilt']],
+        //   1800,
+        //   'cyan',
+        //   2000,
+        //   'magenta'
+        // ],
+        'fill-opacity': 0.9
+      }
+    })
+
+    map.on('click', `pluto-layer`, function(e) {
+      popupContentHTML = ''
+      let html = ''
+      const feature = e.features[0];
+      console.log(`clicked pluto-layer`)
+      console.log(feature)
+      selectedBBL = feature.properties.base_bbl
+      console.log(selectedBBL)
+
+      // if we want to put all the properties in the popup (a bit much)
+      for (let [key, value] of Object.entries(feature.properties)) {
+        console.log(`${key}: ${value}`);
+        html += `<br>${key}: ${value}`
+      }
+      
+      popupContentHTML += `<br><b>BBL:</b> ${feature.properties.base_bbl}`
+      popupContentHTML += `<br><b>Year Built:</b> ${feature.properties.yearbuilt}`
+
+      console.log(popupContentHTML)
+
+      new mapboxgl.Popup()
+      // popup
+        .setLngLat(e.lngLat)
+        .setHTML(html)
+        .addTo(map);
+    });
+
+    // Change the cursor to a pointer when the mouse is over the states layer.
+    map.on('mouseenter', 'pluto-layer', function() {
+      // console.log(`hovered benchmark-${yearFromInput.toString()}-layer`)
+      map.getCanvas().style.cursor = 'pointer';
+    });
+    
+    // Change it back to a pointer when it leaves.
+    map.on('mouseleave', 'pluto-layer', function() {
+      // console.log(`left benchmark-${yearFromInput.toString()}-layer`)
+      map.getCanvas().style.cursor = '';
+    });
+});
+
+///// UTILS /////
+//utility function to print numbers with commas
+function numberWithCommas(x) {
+  var parts = x.toString().split(".");
+  parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  return parts.join(".");
+}
+
+</script>
+
+</body>
+</html>
