@@ -1,0 +1,58 @@
+,Unnamed: 0,Unnamed: 0.1,Unnamed: 0.1.1,Unnamed: 0.1.1.1,Unnamed: 0.1.1.1.1,Unnamed: 0.1.1.1.1.1,City Council District,Agency,Site,BBL,Address,Borough,Environmental Justice Zone*,Installation date,Installed  Capacity,Percentage of Max Peak Demand,Estimated Annual Production,Percentage of Annual Electricity Consumption,Estimated Annual Emissions Reduction,Estimated Social Cost of Carbon Value**,Estimated Annual Energy Savings***,Upfront Project Cost,Financing Mechanism
+0,0,0,0,0,0,0,1,DCAS,City Hall,1,City Hall Park,Manhattan,0,4/17/2015,10.0 kW,0.10%,"11,738 kWh",0.10%,3 MT CO2,$403,"$1,229","$1,297",Capital
+1,1,1,1,1,1,1,1,DOE,M276,1000160040,55 Battery Place,Manhattan,0,7/1/2010,50.0 kW,6%,"58,692 kWh",3%,15 MT CO2,"$2,017","$5,765","$231,500",Capital
+2,2,2,2,2,2,2,1,DOT,Whitehall Ferry Terminal,1000020001,4 South St,Manhattan,0,7/1/2005,59.0 kW,6%,"69,257 kWh",2%,18 MT CO2,"$2,380","$6,803","$236,000",Capital
+3,3,3,3,3,3,3,1,CUNY,BMCC Chambers St. Building,1001420050,199 Chambers St,Manhattan,0,11/29/2017,307.0 kW,5%,"360,369 kWh",2%,94 MT CO2,"$12,386","$34,486","$4,200,000",Capital
+4,4,4,4,4,4,4,2,DOE,M022 - NEST,1003350001,111 Columbia St,Manhattan,EJZ,7/1/2014,125.0 kW,20%,"146,730 kWh",17%,38 MT CO2,"$5,043","$13,305","$905,386",Capital
+5,5,5,5,5,5,5,3,DOE,M070,1007410010,333 West 17th St,Manhattan,0,4/21/2016,159.2 kW,24%,"186,887 kWh",24%,49 MT CO2,"$6,424","$16,946","$650,690",Capital
+6,6,6,6,6,6,6,6,DOE,M470,1012150001,145 West 84th Street,Manhattan,0,7/1/2012,46.7 kW,3%,"54,818 kWh",2%,14 MT CO2,"$1,884","$5,738","$392,500",Capital
+7,7,7,7,7,7,7,8,DPR,Five Borough Administrative Building,1018190203,20 Bronx Shore Rd,Manhattan,EJZ,6/5/2015,46.2 kW,12%,"54,196 kWh",6%,14 MT CO2,"$1,863","$5,673","$108,836",Capital
+8,8,8,8,8,8,8,9,DOE,M154,1019320010,250 West 127th Street,Manhattan,EJZ,4/28/2014,125.9 kW,30%,"147,775 kWh",26%,38 MT CO2,"$5,079","$13,400","$578,750",Capital
+9,9,9,9,9,9,9,10,DOE,X475,2,99 Terrace View Ave,Bronx,EJZ,7/15/2014,117.0 kW,9%,"137,339 kWh",5%,36 MT CO2,"$4,721","-$34,571",$0,PPA
+10,10,10,10,10,10,10,11,DOE,X445,2,75 West 205th St,Bronx,0,10/1/2005,36.0 kW,3%,"42,258 kWh",2%,11 MT CO2,"$1,452","$4,423","$166,680",Capital
+11,11,11,11,11,11,11,12,DOE,X425,2046330040,800 East Gun Hill Rd,Bronx,EJZ,1/13/2016,131.8 kW,14%,"154,665 kWh",8%,40 MT CO2,"$5,316","$14,025","$570,186",Capital
+12,12,12,12,12,12,12,13,DOE,X192,2054380001,650 Hollywood Ave,Bronx,0,3/15/2016,137.3 kW,25%,"161,110 kWh",19%,42 MT CO2,"$5,538","$14,609","$571,895",Capital
+13,13,13,13,13,13,13,13,DOE,X144,2044930001,2545 Gunther Ave,Bronx,EJZ,4/8/2016,192.2 kW,31%,"225,553 kWh",24%,59 MT CO2,"$7,753","$20,452","$800,653",Capital
+14,14,14,14,14,14,14,13,DOE,X405,2053680002,3000 East Tremont Avenue,Bronx,EJZ,7/15/2014,247.0 kW,16%,"289,938 kWh",8%,76 MT CO2,"$9,966","-$72,984",$0,PPA
+15,15,15,15,15,15,15,15,NYPD,48th Precinct,2029070010,450 Cross Bronx Expwy,Bronx,EJZ,3/30/2012,31.7 kW,8%,"37,211 kWh",3%,10 MT CO2,"$1,279","$3,895","$352,987",Capital
+16,16,16,16,16,16,16,17,DOE,X184,2,778 Forest Ave / 756 East 158 St,Bronx,EJZ,4/8/2016,248.9 kW,29%,"292,110 kWh",28%,76 MT CO2,"$10,040","$26,488","$943,255",Capital
+17,17,17,17,17,17,17,18,DOE,X131,2036440001,885 Bolton Ave,Bronx,EJZ,3/15/2016,200.8 kW,31%,"235,707 kWh",26%,61 MT CO2,"$8,102","$21,373","$833,696",Capital
+18,18,18,18,18,18,18,20,DCLA,Queens Botanical Garden,4051070200,43-50 Main Street,Queens,EJZ,3/7/2007,18.0 kW,8%,"21,129 kWh",4%,6 MT CO2,$726,"$2,212","$83,340",Capital
+19,19,19,19,19,19,19,20,DOE,Q237,4051470001,46-21 Colden St,Queens,EJZ,4/13/2016,247.0 kW,29%,"289,938 kWh",34%,76 MT CO2,"$9,966","$26,291","$907,435",Capital
+20,20,20,20,20,20,20,21,DCLA,NY Hall of Science,4020180001,47-01 111th St,Queens,0,10/1/2005,15.0 kW,1%,"17,608 kWh",1%,5 MT CO2,$605,"$1,843","$155,598",Capital
+21,21,21,21,21,21,21,21,NYPD,115th Precinct,4014220034,92-15 Northern Blvd,Queens,EJZ,3/30/2012,49.7 kW,24%,"58,340 kWh",11%,15 MT CO2,"$2,005","$6,107","$536,633",Capital
+22,22,22,22,22,22,22,22,NYPD,114th Precinct,4006320030,34-16 Astoria Blvd,Queens,0,3/30/2012,37.4 kW,18%,"43,902 kWh",7%,11 MT CO2,"$1,509","$4,595","$409,808",Capital
+23,23,23,23,23,23,23,24,DOE,Q505,4,160-05 Highland Ave / 87-01 Parsons Blvd,Queens,EJZ,4/6/2016,367.8 kW,27%,"431,774 kWh",19%,112 MT CO2,"$14,841","$36,354","$1,589,608",Capital
+24,24,24,24,24,24,24,26,FDNY,Transportation Repair Shop,4002540001,48-67 34th St,Queens,0,3/27/2012,31.7 kW,4%,"37,211 kWh",1%,10 MT CO2,"$1,279","$3,895","$393,729",Capital
+25,25,25,25,25,25,25,26,DOE,Q204,4003430001,36-41 28th St,Queens,EJZ,4/6/2016,159.2 kW,33%,"186,887 kWh",28%,49 MT CO2,"$6,424","$16,946","$663,398",Capital
+26,26,26,26,26,26,26,26,DOE,Q445,4007380002,48-10 31st Ave,Queens,EJZ,4/6/2016,199.9 kW,27%,"234,621 kWh",18%,61 MT CO2,"$8,064","$21,275","$792,584",Capital
+27,27,27,27,27,27,27,28,DOE,Q226,4,121-10 Rockaway Blvd / 116-30 122 St,Queens,EJZ,4/13/2016,135.9 kW,19%,"159,466 kWh",11%,42 MT CO2,"$5,481","$14,460","$499,089",Capital
+28,28,28,28,28,28,28,28,DOE,Q072,4124950270,133-25 Guy R. Brewer Blvd,Queens,EJZ,4/13/2016,248.9 kW,37%,"292,110 kWh",32%,76 MT CO2,"$10,040","$26,488","$943,255",Capital
+29,29,29,29,29,29,29,31,DSNY,Queens East 13J District Garage,4150010073,153-67 146th Ave,Queens,EJZ,3/27/2012,49.7 kW,28%,"58,340 kWh",12%,15 MT CO2,"$2,005","$6,107","$524,323",Capital
+30,30,30,30,30,30,30,31,DOE,Q215,4157720031,535 BRIAR PLACE,Queens,EJZ,6/1/2018,159.5 kW,33%,"187,227 kWh",37%,49 MT CO2,"$6,435","$16,977","$2,798,825",Capital
+31,31,31,31,31,31,31,32,DOT,Sunrise Yard,4,88-20 Pitkin Ave,Queens,EJZ,2/22/2012,49.7 kW,30%,"58,340 kWh",27%,15 MT CO2,"$2,005","$6,107","$517,382",Capital
+32,32,32,32,32,32,32,33,DPR,Bushwick Inlet Park Community Center and District Headquarters,3,86 Kent Ave,Brooklyn,0,10/1/2013,66.2 kW,32%,"77,650 kWh",25%,20 MT CO2,"$2,669","$7,627","$264,600",Capital
+33,33,33,33,33,33,33,33,DOE,K380,3022360009,370 Marcy Ave,Brooklyn,EJZ,3/12/2016,104.3 kW,17%,"122,443 kWh",16%,32 MT CO2,"$4,209","$11,103","$434,640",Capital
+34,34,34,34,34,34,34,33,BNY,Brooklyn Navy Yard,3020280001,36 Flushing Ave,Brooklyn,0,9/26/2016,993.0 kW,0,"1,165,623 kWh",0,304 MT CO2,"$40,064",$0,Agency Funded,Agency Funded
+35,35,35,35,35,35,35,36,DCLA,Brooklyn Children's Museum,3012290001,145 Brooklyn Avenue,Brooklyn,EJZ,9/16/2009,26.5 kW,6%,"31,107 kWh",2%,8 MT CO2,"$1,069","$3,256","$247,283",Capital
+36,36,36,36,36,36,36,36,DOE,K324,3016360001,800 Gates Ave,Brooklyn,EJZ,9/24/2015,120.8 kW,14%,"141,922 kWh",8%,37 MT CO2,"$4,878","$12,869","$545,104",Capital
+37,37,37,37,37,37,37,36,DOE,K455,3017010001,1700 Fulton Street,Brooklyn,EJZ,10/23/2015,505.1 kW,31%,"592,883 kWh",17%,154 MT CO2,"$20,378","$47,978","$2,114,467",Capital
+38,38,38,38,38,38,38,37,DOE,K302,3039690001,350 Linwood St,Brooklyn,EJZ,9/22/2015,137.3 kW,24%,"161,275 kWh",16%,42 MT CO2,"$5,543","$14,624","$616,767",Capital
+39,39,39,39,39,39,39,38,DPR,Red Hook Recreation Center,3005820001,155 Bay St,Brooklyn,EJZ,11/1/2014,36.6 kW,13%,"42,963 kWh",8%,11 MT CO2,"$1,477","$4,497","$75,000",Capital
+40,40,40,40,40,40,40,38,EDC,Brooklyn Army Terminal,3057780001,80 58th St.,Brooklyn,0,9/9/2013,100.0 kW,0,"117,384 kWh",0,31 MT CO2,"$4,035",$0,0,Agency Funded
+41,41,41,41,41,41,41,39,DOE,K032,3004370001,317 Hoyt St,Brooklyn,0,7/1/2012,47.6 kW,12%,"55,875 kWh",9%,15 MT CO2,"$1,921","$5,849","$341,670",Capital
+42,42,42,42,42,42,42,42,DOE,K224,3045290133,755 Wortman Ave,Brooklyn,EJZ,9/24/2015,98.8 kW,17%,"116,118 kWh",15%,30 MT CO2,"$3,991","$11,406","$449,555",Capital
+43,43,43,43,43,43,43,44,DOE,K505,3055060006,5800 20th Ave,Brooklyn,EJZ,9/18/2015,362.3 kW,37%,"425,329 kWh",31%,111 MT CO2,"$14,619","$35,811","$1,516,875",Capital
+44,44,44,44,44,44,44,45,DSNY,Brooklyn South 14 District Garage,3079180145,1397 Ralph Ave,Brooklyn,0,3/22/2012,49.7 kW,29%,"58,340 kWh",11%,15 MT CO2,"$2,005","$6,107","$511,334",Capital
+45,45,45,45,45,45,45,46,DOE,K278,3084960100,1925 Stuart St,Brooklyn,0,4/12/2016,120.8 kW,21%,"141,922 kWh",18%,37 MT CO2,"$4,878","$12,869","$503,268",Capital
+46,46,46,46,46,46,46,46,DOE,K515,3079980005,6565 Flatlands Ave,Brooklyn,EJZ,4/12/2016,590.2 kW,36%,"692,800 kWh",33%,180 MT CO2,"$23,813","$56,063","$2,617,082",Capital
+47,47,47,47,47,47,47,49,DOE,R013,5028520001,191 Vermont Avenue,Staten Island,EJZ,9/1/2005,4.0 kW,1%,"4,695 kWh",1%,1 MT CO2,$161,$491,"$18,520",Capital
+48,48,48,48,48,48,48,49,DOE,R014,5005450110,100 Tompkins Ave,Staten Island,EJZ,12/1/2006,4.0 kW,1%,"4,695 kWh",1%,1 MT CO2,$161,$491,"$18,520",Capital
+49,49,49,49,49,49,49,49,DOE,R445,5011210001,85 St. Joseph's Avenue,Staten Island,0,4/15/2016,120.8 kW,12%,"141,776 kWh",8%,37 MT CO2,"$4,873","$12,856","$545,104",Capital
+50,50,50,50,50,50,50,49,DOT,St. George Ferry Terminal,5000020001,1 Bay St.,Staten Island,EJZ,12/30/2014,219.4 kW,15%,"257,540 kWh",4%,67 MT CO2,"$8,852","-$64,829",$0,PPA
+51,51,51,51,51,51,51,49,DEP,Port Richmond WWTP,5001850400,1801 Richmond Ter,Staten Island,EJZ,6/1/2015,"1,264.3 kW",21%,"1,484,027 kWh",5%,386 MT CO2,"$51,009","-$379,021",$0,PPA
+52,52,52,52,52,52,52,51,FDNY,Engine Co. 168,5070670252,1100 Rossville Ave,Staten Island,EJZ,3/22/2012,34.6 kW,30%,"40,615 kWh",16%,11 MT CO2,"$1,396","$4,251","$441,503",Capital
+53,53,53,53,53,53,53,51,DOE,R075,5060500002,455 Huguenot Avenue,Staten Island,0,4/15/2016,129.7 kW,15%,"152,218 kWh",15%,40 MT CO2,"$5,232","$13,803","$568,796",Capital
+54,54,54,54,54,54,54,51,DOE,R069,5023660073,144 Keating Pl,Staten Island,0,4/20/2015,203.1 kW,29%,"238,442 kWh",36%,62 MT CO2,"$8,196","$21,621","$905,386",Capital
+55,55,55,55,55,55,55,51,DOE,R455,5066130001,100 Luten Ave,Staten Island,0,4/15/2016,532.5 kW,32%,"625,105 kWh",22%,163 MT CO2,"$21,486","$50,585","$2,218,953",Capital
+56,56,56,56,56,56,56,51,DOE,R062 - NET ZERO,5070920039,644 Bloomingdale Road,Staten Island,0,9/1/2015,600.0 kW,56%,"704,304 kWh",87%,183 MT CO2,"$24,208","$56,994","$2,778,000",Capital
